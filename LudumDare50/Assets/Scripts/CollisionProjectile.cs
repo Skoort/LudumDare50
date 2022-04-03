@@ -8,10 +8,10 @@ public class CollisionProjectile : Projectile
 
     protected override void CalculateMovement()
     {
-        _rb2d.velocity = this.transform.right * Speed;
+        //_rb2d.velocity = this.transform.right * Speed;
     }
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	protected void OnTriggerEnter2D(Collider2D collision)
 	{
         var gameObject = collision.gameObject;
 		if (ShouldRegisterHit(gameObject))
@@ -28,9 +28,10 @@ public class CollisionProjectile : Projectile
         }
 	}
 
-	//protected override void Init()
-	//{
-	//	base.Init();
+	protected override void Init()
+	{
+		base.Init();
 
-	//}
+        _rb2d.velocity = this.transform.right * Speed;
+    }
 }

@@ -199,6 +199,8 @@ public abstract class Enemy : MonoBehaviour
 		_animator.SetTrigger("Die");
 		gameObject.layer = LayerMask.NameToLayer("Corpse");
 		gameObject.tag = "Corpse";
+
+		UpgradeManager.Instance.AttemptToSpawnDrop(transform.position);
 	}
 
 	// Called from Health.

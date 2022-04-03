@@ -10,21 +10,21 @@ public abstract class FiringPattern : MonoBehaviour
 
 	public float MinTimeBetweenShots => 1 / MinRateOfFire;
 	[field: SerializeField] 
-	public float MinRateOfFire { get; private set; }
+	public float MinRateOfFire { get; set; }
 	public float MaxTimeBetweenShots => 1 / MaxRateOfFire;
 	[field: SerializeField]
-	public float MaxRateOfFire { get; private set; }
+	public float MaxRateOfFire { get; set; }
 
 	[field: SerializeField]
-	public bool ShouldBurst { get; private set; }
+	public bool ShouldBurst { get; set; }
 	[field: SerializeField]
-	public int BurstAmount { get; private set; }
+	public int BurstAmount { get; set; }
 	public float MinTimeBetweenBursts => 1 / MinRateOfBurst;
 	[field: SerializeField]
-	public float MinRateOfBurst { get; private set; }
+	public float MinRateOfBurst { get; set; }
 	public float MaxTimeBetweenBursts => 1 / MaxRateOfBurst;
 	[field: SerializeField]
-	public float MaxRateOfBurst { get; private set; }
+	public float MaxRateOfBurst { get; set; }
 
 	Coroutine _spawningCoroutine;
 	private void OnEnable()
@@ -60,7 +60,7 @@ public abstract class FiringPattern : MonoBehaviour
 			var cooldown = Random.Range(MinTimeBetweenShots, MaxTimeBetweenShots);
 			if (ShouldBurst)
 			{
-				cooldown -= timeBeforeShot;
+				cooldown -= (timeAfterShot - timeBeforeShot);
 			}
 
 			yield return new WaitForSeconds(cooldown);

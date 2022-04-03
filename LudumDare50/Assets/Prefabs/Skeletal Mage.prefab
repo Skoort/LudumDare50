@@ -102,11 +102,11 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 5821338908451407743, guid: a2e4d9ab14c407a4dbcb2f323e80b024, type: 3}
   _minStrikeRange: 6
   _maxStrikeRange: 7
-  _attackCooldown: 5
+  _attackCooldown: 8
   _maxResurrects: 5
   _resurrectRadius: 1.5
   _corpseViewRadius: 15
-  _resurrectCooldown: 10
+  _resurrectCooldown: 15
   _avoidanceLayer:
     serializedVersion: 2
     m_Bits: 448

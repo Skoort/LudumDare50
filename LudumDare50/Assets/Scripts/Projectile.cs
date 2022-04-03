@@ -6,28 +6,36 @@ public abstract class Projectile : PoolableObject
     [field: SerializeField]
     public float Speed { get; private set; }
 
-    [field: SerializeField]
-    public float SizeMod { get; private set; }
+    [SerializeField] private float _sizeMod = 1;
+    public float SizeMod 
+    {
+        get => _sizeMod;
+        set
+        {
+            _sizeMod = value;
+            ArtRoot.transform.localScale = Vector3.one * value;
+        }
+    }
 
     [field: SerializeField, Tooltip("If negative, this projectile doesn't despawn after travelling a set distance.")]
-    public float Range { get; private set; }
+    public float Range { get; set; }
 
     [field: SerializeField, Tooltip("If negative, this projectile doesn't despawn after a set amount of time.")]
-    public float Lifetime { get; private set; }
+    public float Lifetime { get; set; }
 
     [field: SerializeField, Tooltip("How many entities can this projectile penetrate?")]
-    public int Penetration { get; private set; }    
+    public int Penetration { get; set; }    
 
     [field: SerializeField]
-    public float MinDamage { get; private set; }
+    public float MinDamage { get; set; }
     [field: SerializeField]
-    public float MaxDamage { get; private set; }    
+    public float MaxDamage { get; set; }    
 
     [field: SerializeField]
     public LayerMask HitLayer { get; set; }
 
     [field: SerializeField]
-    public GameObject ArtRoot { get; private set; }
+    public GameObject ArtRoot { get; set; }
 
     public GameObject FiredBy { get; set; }
     public Transform Target { get; set; }
@@ -60,8 +68,8 @@ public abstract class Projectile : PoolableObject
 
     public override void OnRequested()
     {
-        Init();
         base.OnRequested();
+        Init();
     }
 
 	protected virtual void Init()
@@ -73,8 +81,6 @@ public abstract class Projectile : PoolableObject
         _elapsedRange = 0;
         _prevPrevPosition = transform.position;
         _prevPosition = transform.position;
-
-        ArtRoot.transform.localScale = Vector3.one * SizeMod;
 	}
 
     private List<GameObject> _hitObjects = new List<GameObject>();
