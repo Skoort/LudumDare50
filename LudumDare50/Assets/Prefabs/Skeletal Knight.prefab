@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4478150854867305809}
   - component: {fileID: 4478150854867305810}
+  - component: {fileID: 1898267631744471737}
   - component: {fileID: 4478150854867305808}
   - component: {fileID: 4478150854867305811}
   - component: {fileID: 864149329511396217}
@@ -48,17 +49,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _moveSpeed: 2
+  _moveSpeed: 3
   _strikeRange: 0.75
   _animator: {fileID: 0}
   _renderer: {fileID: 0}
+  <EnemyState>k__BackingField: 0
   _attackCooldown: 1
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  _minAvoidanceRadius: 1.5
+  _minAvoidanceRadius: 0.75
   _maxAvoidanceRadius: 4
   _colliderRadius: 0.25
+--- !u!114 &1898267631744471737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4478150854867305807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be7052838dc1ff469b6c1cd66033a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
 --- !u!58 &4478150854867305808
 CircleCollider2D:
   m_ObjectHideFlags: 0

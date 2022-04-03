@@ -94,34 +94,34 @@ TextureImporter:
     second: SkeletalWarrior_Sprites_29
   - first:
       213: -4183764738981324053
-    second: SkeletalWarrior_Sprites_30
+    second: Knight Die 0
   - first:
       213: -2206948316810619363
-    second: SkeletalWarrior_Sprites_31
+    second: Knight Die 1
   - first:
       213: -4976328098731833529
-    second: SkeletalWarrior_Sprites_32
+    second: Knight Die 2
   - first:
       213: -4649666414430529575
-    second: SkeletalWarrior_Sprites_33
+    second: Knight Die 3
   - first:
       213: -1704852821632927252
-    second: SkeletalWarrior_Sprites_34
+    second: Knight Die 4
   - first:
       213: -3114595012477672727
-    second: SkeletalWarrior_Sprites_35
+    second: Knight Die 5
   - first:
       213: 6627924616294657830
-    second: SkeletalWarrior_Sprites_36
+    second: Knight Die 6
   - first:
       213: -5625172810971354849
-    second: SkeletalWarrior_Sprites_37
+    second: Knight Die 7
   - first:
       213: -7141927469778078788
-    second: SkeletalWarrior_Sprites_38
+    second: Knight Die 8
   - first:
       213: 1019389608527469829
-    second: SkeletalWarrior_Sprites_39
+    second: Knight Die 9
   - first:
       213: 6795653323690097356
     second: SkeletalWarrior_Sprites_40
@@ -973,15 +973,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_30
+      name: Knight Die 0
       rect:
         serializedVersion: 2
         x: 7
         y: 161
         width: 18
         height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -994,15 +994,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_31
+      name: Knight Die 1
       rect:
         serializedVersion: 2
         x: 39
         y: 161
         width: 16
         height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1015,15 +1015,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_32
+      name: Knight Die 2
       rect:
         serializedVersion: 2
         x: 71
         y: 161
         width: 17
         height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1036,15 +1036,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_33
+      name: Knight Die 3
       rect:
         serializedVersion: 2
         x: 101
         y: 161
         width: 18
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1057,15 +1057,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_34
+      name: Knight Die 4
       rect:
         serializedVersion: 2
         x: 131
         y: 161
         width: 21
         height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1078,15 +1078,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_35
+      name: Knight Die 5
       rect:
         serializedVersion: 2
         x: 161
         y: 161
         width: 23
         height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1099,15 +1099,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_36
+      name: Knight Die 6
       rect:
         serializedVersion: 2
         x: 193
         y: 161
         width: 24
         height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1120,15 +1120,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_37
+      name: Knight Die 7
       rect:
         serializedVersion: 2
         x: 225
         y: 161
         width: 25
         height: 12
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1141,15 +1141,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_38
+      name: Knight Die 8
       rect:
         serializedVersion: 2
         x: 257
         y: 161
         width: 25
         height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1162,15 +1162,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_39
+      name: Knight Die 9
       rect:
         serializedVersion: 2
         x: 289
         y: 161
         width: 25
         height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
