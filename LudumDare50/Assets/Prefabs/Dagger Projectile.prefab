@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8380902691770954477}
   - component: {fileID: 8380902691770954479}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Dagger Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,11 +179,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8380902691770954476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af74b1d2dd12d045a9dee0b9d785581, type: 3}
+  m_Script: {fileID: 11500000, guid: b54a6f9c407a29d4782e315520bd3075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _shouldToggleActiveness: 1
   _onReclaimed:
+    m_PersistentCalls:
+      m_Calls: []
+  _onRequested:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3048704274794882979}
@@ -198,12 +201,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onRequested:
-    m_PersistentCalls:
-      m_Calls: []
   <Speed>k__BackingField: 10
   <SizeMod>k__BackingField: 1
   <Range>k__BackingField: 10
+  <Lifetime>k__BackingField: -1
   <Penetration>k__BackingField: 1
   <MinDamage>k__BackingField: 30
   <MaxDamage>k__BackingField: 40

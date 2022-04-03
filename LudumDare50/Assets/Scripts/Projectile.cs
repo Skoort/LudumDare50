@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : PoolableObject
+public abstract class Projectile : PoolableObject
 {
     [field: SerializeField]
     public float Speed { get; private set; }
@@ -9,8 +9,11 @@ public class Projectile : PoolableObject
     [field: SerializeField]
     public float SizeMod { get; private set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Tooltip("If negative, this projectile doesn't despawn after travelling a set distance.")]
     public float Range { get; private set; }
+
+    [field: SerializeField, Tooltip("If negative, this projectile doesn't despawn after a set amount of time.")]
+    public float Lifetime { get; private set; }
 
     [field: SerializeField, Tooltip("How many entities can this projectile penetrate?")]
     public int Penetration { get; private set; }    
@@ -30,8 +33,9 @@ public class Projectile : PoolableObject
     public Transform Target { get; set; }
     public Vector3 InheritedVelocity { get; set; }
 
-    private float _elapsedRange;
-    private int _numImpacts;
+    protected float _elapsedTime;
+    protected float _elapsedRange;
+    protected int _numImpacts;
 
     public virtual void OnHit(GameObject hitObject)
     {
@@ -60,50 +64,49 @@ public class Projectile : PoolableObject
         base.OnRequested();
     }
 
-	private void Init()
+	protected virtual void Init()
 	{
-        _elapsedRange = 0;
         _numImpacts = 0;
         _hitObjects.Clear();
+
+        _elapsedTime = 0;
+        _elapsedRange = 0;
+        _prevPrevPosition = transform.position;
+        _prevPosition = transform.position;
+
         ArtRoot.transform.localScale = Vector3.one * SizeMod;
 	}
 
     private List<GameObject> _hitObjects = new List<GameObject>();
 
+    private Vector3 _prevPosition;
+    private Vector3 _prevPrevPosition;
 	private void FixedUpdate()
     {
-        var delta = (transform.right * Speed + InheritedVelocity) * Time.fixedDeltaTime;
-        var deltaMagnitude = delta.magnitude;
+        _prevPrevPosition = _prevPosition;
+        _prevPosition = transform.position;
 
-        var hitInfo = Physics2D.Raycast(transform.position, delta, deltaMagnitude, HitLayer.value);
-        if (hitInfo.transform && ShouldRegisterHit(hitInfo))
-        {
-            transform.position = hitInfo.point;
-
-            var health = hitInfo.transform.root.GetComponent<Health>();
-            if (health != null)
-            {
-                var damage = Random.Range(MinDamage, MaxDamage);
-
-                health.Damage(damage, FiredBy);
-            }
-
-            OnHit(hitInfo.transform.gameObject);
-        }
-        else
-        {
-            transform.position += delta;
-        }
-
-        _elapsedRange += deltaMagnitude;
-        if (_elapsedRange >= Range)
+        _elapsedRange += Vector3.Distance(_prevPrevPosition, _prevPosition);
+        if (Range > 0 && _elapsedRange >= Range)
         {
             OnMiss();
+            return;
         }
+
+        _elapsedTime += Time.fixedDeltaTime;
+        if (Lifetime > 0 && _elapsedTime >= Lifetime)
+        {
+            OnMiss();
+            return;
+        }
+
+        CalculateMovement();
     }
 
-    private bool ShouldRegisterHit(RaycastHit2D hitInfo)
+    protected abstract void CalculateMovement();
+
+    protected bool ShouldRegisterHit(GameObject hitObject)
     {
-        return hitInfo.transform.gameObject != this.FiredBy && !_hitObjects.Contains(hitInfo.transform.gameObject);
+        return hitObject != this.FiredBy && !_hitObjects.Contains(hitObject) && ((1 << hitObject.layer) & HitLayer.value) > 0;
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MageEnemy : Enemy
 {
+	[SerializeField] private Transform _fireOrigin = default;
+	[SerializeField] private Projectile _projectilePrefab = default;
+
 	[SerializeField] private float _minStrikeRange = 5;
 	[SerializeField] private float _maxStrikeRange = 8;
 	private float _strikeRange;
@@ -139,7 +142,7 @@ public class MageEnemy : Enemy
 	{
 		if (_isLookingForCorpses)
 		{
-			return _corpseTarget && _distanceToAveragePosition <= (_minAvoidanceRadius + buffer);
+			return _corpseTarget && _distanceToAveragePosition <= (0.5F * _resurrectRadius + buffer);
 		}
 		else
 		{ 
@@ -178,8 +181,13 @@ public class MageEnemy : Enemy
 			_resurrectReady = false;
 		}
 		else
-		{ 
-			// Shoot a ball of necrotic energy.
+		{
+			// Shoot the fire ball at the player.
+			var position = _fireOrigin.position + DirectionToPlayer * 0.5F;
+
+			var projectile = ObjectPool.Instance.RequestInstance<Projectile>(_projectilePrefab, desiredPosition: position, desiredRight: DirectionToPlayer);
+			projectile.FiredBy = gameObject;
+			projectile.Target = null;
 		}
 	}
 
@@ -318,6 +326,7 @@ public class MageEnemy : Enemy
 		int numDeepenings = 0;
 		while (true)
 		{
+			_distanceToAveragePosition = Vector3.Distance(_corpseAveragePosition, transform.position);
 			if (_distanceToAveragePosition <= _resurrectRadius)
 			{
 				int numSums = 0;

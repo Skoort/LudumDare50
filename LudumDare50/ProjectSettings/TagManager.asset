@@ -15,8 +15,8 @@ TagManager:
   - Player
   - Enemy
   - Corpse
-  - Projectile
-  - 
+  - Enemy Projectile
+  - Player Projectile
   - 
   - 
   - 
