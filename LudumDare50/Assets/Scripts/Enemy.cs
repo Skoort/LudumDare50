@@ -67,7 +67,7 @@ public abstract class Enemy : MonoBehaviour
 		DistanceToPlayer = toFrom.magnitude;
 	}
 
-	protected void LookAtDirection()
+	protected virtual void LookAtDirection()
 	{
 		if (DirectionToPlayer.x > 0 && _renderer.flipX)
 		{
@@ -166,7 +166,21 @@ public abstract class Enemy : MonoBehaviour
 	protected virtual void OnDamaged(GameObject source)
 	{
 		// This trigger may interfere with the death trigger.
-		_animator.SetTrigger("Struck");  
+		_animator.SetTrigger("Struck");
+
+		if (EnemyState == EEnemyState.ATTACKING)
+		{
+			EnemyState = EEnemyState.IDLING;
+
+			//_isMoving = false;
+			//_animator.SetBool("IsMoving", _isMoving);
+		}
+
+		if (EnemyState == EEnemyState.DEAD)
+		{
+			// The resurrection was interrupted. Finish setting the necessary stuff here.
+			OnResurrectedFinished();
+		}
 	}
 
 	// Called from Health.

@@ -185,6 +185,8 @@ public class SimpleEnemy : Enemy
 	{
 		base.OnResurrected();
 
+		// The resurrection animation can be interrupted, so do this here.
+		_attackTimer = 0;
 		_bunchingAvoidance = StartCoroutine(BunchingAvoidance());
 	}
 

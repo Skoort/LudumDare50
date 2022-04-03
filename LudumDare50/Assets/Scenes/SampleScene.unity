@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &332804248
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633679, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_Name
+      value: Skeletal Knight (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +284,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &789776114
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633671, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858672548986633679, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
+      propertyPath: m_Name
+      value: Skeletal Knight (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2001fb72c3b42de42ae8a543c0ee000f, type: 3}
 --- !u!1 &844234116
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +874,14 @@ PrefabInstance:
     - target: {fileID: 1845247702197444684, guid: 535cf761d74ee064c94a499796e0a1d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845247702197444685, guid: 535cf761d74ee064c94a499796e0a1d2, type: 3}
+      propertyPath: _resurrectRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845247702197444685, guid: 535cf761d74ee064c94a499796e0a1d2, type: 3}
+      propertyPath: _resurrectCooldown
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 535cf761d74ee064c94a499796e0a1d2, type: 3}

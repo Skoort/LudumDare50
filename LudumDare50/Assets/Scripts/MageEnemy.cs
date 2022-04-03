@@ -13,7 +13,8 @@ public class MageEnemy : Enemy
 
 	[SerializeField] private int _maxResurrects = 5;
 	[SerializeField] private float _resurrectRadius = 3F;
-	[SerializeField] private float _resurrectCooldown = 15F;
+	[SerializeField] private float _corpseViewRadius = 15;
+	[SerializeField] private float _resurrectCooldown = 10F;
 	private float _resurrectTimer;
 
 	protected override void Awake()
@@ -45,7 +46,8 @@ public class MageEnemy : Enemy
 		_attackTimer -= Time.deltaTime;
 		_resurrectTimer -= Time.deltaTime;
 
-		if (_resurrectTimer <= 0 && !_isLookingForCorpses)
+		// Resurrect is off cooldown, we aren't already looking for corpses, and we aren't in the process of finishing a resurrection.
+		if (_resurrectTimer <= 0 && !_isLookingForCorpses && !_isResurrecting)
 		{
 			StartLookingForCorpses();
 		}
@@ -73,6 +75,25 @@ public class MageEnemy : Enemy
 		}
 	}
 
+	protected override void LookAtDirection()
+	{
+		if (!_isLookingForCorpses)
+		{
+			base.LookAtDirection();
+		}
+		else
+		{
+			var fromTo = _corpseAveragePosition - transform.position;
+			if (fromTo.x > 0 && _renderer.flipX)
+			{
+				_renderer.flipX = false;
+			} else
+			if (fromTo.x < 0 && !_renderer.flipX)
+			{
+				_renderer.flipX = true;
+			}
+		}
+	}
 	protected override void HandleRun()
 	{
 		if (IsInRange())
@@ -149,6 +170,12 @@ public class MageEnemy : Enemy
 				}
 			}
 
+			// Successfully got the rez off.
+			_isLookingForCorpses = false;
+			_corpseTarget = null;
+			_distanceToAveragePosition = 0;
+			_corpseAveragePosition = Vector3.zero;
+			_resurrectReady = false;
 		}
 		else
 		{ 
@@ -160,15 +187,15 @@ public class MageEnemy : Enemy
 	{
 		base.EndAttack();
 
-		_attackTimer = _attackCooldown;  // Prepare the cooldown for the idle state.
-		
-		_isResurrecting = false;
-		_isLookingForCorpses = false;
-		_corpseTarget = null;
-		_distanceToAveragePosition = 0;
-		_corpseAveragePosition = Vector3.zero;
-		_resurrectTimer = _resurrectCooldown;
-		_resurrectReady = false;
+		if (_isResurrecting)
+		{
+			_isResurrecting = false;
+			_resurrectTimer = _resurrectCooldown;
+		}
+		else 
+		{ 
+			_attackTimer = _attackCooldown;  // Prepare the cooldown for the idle state.
+		}
 	}
 
 	private float InverseLerp(float a, float b, float v)
@@ -270,7 +297,7 @@ public class MageEnemy : Enemy
 			{ 
 				var newDirection = corpse.transform.position - transform.position;
 				var newDistance = newDirection.magnitude;
-				if (newDistance < (_resurrectRadius * 3))
+				if (newDistance < _corpseViewRadius)
 				{
 					_corpseTarget = corpse;
 					_corpseAveragePosition = corpse.transform.position;
@@ -283,6 +310,7 @@ public class MageEnemy : Enemy
 
 		// Found no corpse. Wait a bit before trying again.
 		_resurrectTimer = _resurrectCooldown * 0.33F;
+		_isLookingForCorpses = false;
 	}
 
 	private IEnumerator CorpseSeeker()
@@ -330,9 +358,42 @@ public class MageEnemy : Enemy
 		BeginAttack();
 	}
 
+	private void HandleAttackInterruption()
+	{
+		//EnemyState = EEnemyState.IDLING;
+
+		//_isMoving = false;
+		//_animator.SetBool("IsMoving", _isMoving);
+
+		if (_isResurrecting)
+		{
+			// We interrupted the resurrection animation. Make sure it finishes cleanly.
+			if (_isLookingForCorpses)
+			{
+				// We interrupted before the resurrection could be completed. Allow it to be retried.
+				_isResurrecting = false;
+			}
+			else
+			{
+				// The resurrection went off successfully, only the animation was interrupted.
+				_resurrectTimer = _resurrectCooldown;
+				_isResurrecting = false;
+			}
+		}
+		else
+		{
+			// Handle the attack being interrupted.
+		}
+	}
+
 	protected override void OnDamaged(GameObject source)
 	{
 		base.OnDamaged(source);
+
+		if (EnemyState == EEnemyState.ATTACKING)
+		{ 
+			HandleAttackInterruption();
+		}
 	}
 
 	protected override void OnHealed()
@@ -345,13 +406,25 @@ public class MageEnemy : Enemy
 
 		_rb2d.velocity = Vector2.zero;
 		StopCoroutine(_bunchingAvoidance);
+
+		HandleAttackInterruption();
+
+		// If the resurrection is interrupted it doesn't really matter if we got in here.
 	}
+
 
 	protected override void OnResurrected()
 	{
 		base.OnResurrected();
 
+		// The resurrection animation can be interrupted, so do this here.
 		_bunchingAvoidance = StartCoroutine(BunchingAvoidance());
+		_attackTimer = 0;
+		_resurrectTimer = 0;
+		_isLookingForCorpses = false;
+		_corpseTarget = null;
+		_distanceToAveragePosition = 0;
+		_corpseAveragePosition = Vector3.zero;
 	}
 
 	protected override void OnResurrectedFinished()
