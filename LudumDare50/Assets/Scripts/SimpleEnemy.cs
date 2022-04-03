@@ -14,10 +14,10 @@ public class SimpleEnemy : Enemy
 	{
 		base.Start();
 
-		if (_spontaneouslyCombust)
-		{
-			_health.Damage(_health.MaxHealth, null);
-		}
+		//if (_spontaneouslyCombust)
+		//{
+		//	_health.Damage(_health.MaxHealth, null);
+		//}
 	}
 
 	private Coroutine _bunchingAvoidance;
