@@ -18,7 +18,6 @@ public class Health : MonoBehaviour
 	[SerializeField]
 	private bool _shouldResurrectTriggerInvulnerability = true;
 
-
 	private float _invulnerabilityTimer;
 
 	private void Awake()
@@ -28,6 +27,11 @@ public class Health : MonoBehaviour
 
 	public void Damage(float damage, GameObject source)
 	{
+		if (IsDead)
+		{
+			return;
+		}
+
 		if (_invulnerabilityTimer > 0)
 		{
 			return;
@@ -38,7 +42,6 @@ public class Health : MonoBehaviour
 		if (_currHealth <= 0)
 		{
 			_currHealth = 0;
-			OnDamaged?.Invoke(source);
 			OnKilled?.Invoke(source);
 		}
 		else

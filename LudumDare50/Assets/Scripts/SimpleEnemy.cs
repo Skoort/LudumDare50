@@ -1,139 +1,76 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemy : MonoBehaviour
+public class SimpleEnemy : Enemy
 {
-	public enum EEnemyState
-	{
-		IDLING,
-		RUNNING,
-		ATTACKING,
-		DEAD
-	}
-
-	[SerializeField] private Transform _target = default;
-
-	[SerializeField] private float _moveSpeed = 3F;
 	[SerializeField] private float _strikeRange = 1F;
+	[SerializeField] private float _attackCooldown = 1F;
+	private float _attackTimer;
 
-	[SerializeField] private Animator _animator = default;
-	[SerializeField] private SpriteRenderer _renderer = default;
-	private Rigidbody2D _rb2d;
+	[SerializeField]
+	private bool _spontaneouslyCombust = false;
 
-	private Health _health;
-
-	private void Awake()
+	protected override void Start()
 	{
-		_rb2d = GetComponent<Rigidbody2D>();
+		base.Start();
 
-		if (!_animator)
+		if (_spontaneouslyCombust)
 		{
-			_animator = GetComponent<Animator>();
+			_health.Damage(_health.MaxHealth, null);
 		}
-
-		if (!_renderer)
-		{
-			_renderer = GetComponent<SpriteRenderer>();
-		}
-
-		_target = GameObject.FindWithTag("Player").transform;
-		var toFrom = _target.position - transform.position;
-		_desiredDirection = toFrom.normalized;
-		_distanceToTarget = toFrom.magnitude;
-
-		_health = GetComponent<Health>();
-	}
-
-	private void Start()
-	{
-		_health.OnResurrected += OnResurrected;
 	}
 
 	private Coroutine _bunchingAvoidance;
-	private void OnEnable()
+	protected override void OnEnable()
 	{
+		base.OnEnable();
+
 		_bunchingAvoidance = StartCoroutine(BunchingAvoidance());
-
-		_health.OnDamaged += OnDamaged;
-		_health.OnKilled += OnKilled;
-		_health.OnHealed += OnHealed;
 	}
 
-	private void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable();
+
 		StopCoroutine(_bunchingAvoidance);
-
-		_health.OnDamaged -= OnDamaged;
-		_health.OnKilled -= OnKilled;
-		_health.OnHealed -= OnHealed;
 	}
 
-	private void OnDestroy()
+	protected override void HandleTimers()
 	{
-		_health.OnResurrected -= OnResurrected;  // Unlike the other callbacks, this has to happen when the enemy is dead (and disabled).
+		_attackTimer -= Time.deltaTime;
 	}
 
-	[field: SerializeField]
-	public EEnemyState EnemyState { get; private set; }
-
-	private Vector3 _desiredDirection;
-	private float _distanceToTarget;
-
-	private bool _isMoving;
-	[SerializeField] private float _attackCooldown = 1F;
-	private float _attackTimer;
-	private void Update()
+	protected override void HandleIdle()
 	{
-		var toFrom = _target.position - transform.position;
-		_desiredDirection = toFrom.normalized;
-		_distanceToTarget = toFrom.magnitude;
+		// When you're in the IDLE state, it's harder to accidentally leave it because of bumping.
+		var distanceLeeway = 0.5F;
 
-		if (EnemyState == EEnemyState.DEAD)
+		if (IsInRange(distanceLeeway))
 		{
-			_attackTimer -= Time.deltaTime / _attackCooldown;
-			return;
-		}
-
-		if (_desiredDirection.x > 0 && _renderer.flipX)
-		{
-			_renderer.flipX = false;
-		} else
-		if (_desiredDirection.x < 0 && !_renderer.flipX)
-		{
-			_renderer.flipX = true;
-		}
-
-		switch (EnemyState)
-		{
-			case EEnemyState.IDLING:
+			if (_attackTimer <= 0)
 			{
-				if (IsInRange(buffer: 0.5F))
-				{
-					if (_attackTimer <= 0)
-					{
-						BeginAttack();
-					}
-				}
-				else
-				{
-					// When you're in the IDLE state, it's harder to accidentally leave it because of bumping.
-					EnemyState = EEnemyState.RUNNING;
-				}
-				break;
-			}
-			case EEnemyState.RUNNING:
-			{
-				if (IsInRange())
-				{
-					EnemyState = EEnemyState.IDLING;
-				}
-				break;
+				BeginAttack();
 			}
 		}
+		else
+		{
+			EnemyState = EEnemyState.RUNNING;
+		}
 	}
 
-	private void FixedUpdate()
+	protected override void HandleRun()
+	{
+		if (IsInRange())
+		{
+			EnemyState = EEnemyState.IDLING;
+		}
+	}
+
+	protected override void HandleAttack()
+	{  // Does nothing.
+	}
+
+	protected override void HandleMovement()
 	{
 		Vector3 adjustedDirection = Vector3.zero;
 		if (EnemyState == EEnemyState.IDLING)
@@ -142,59 +79,32 @@ public class SimpleEnemy : MonoBehaviour
 		} else
 		if (EnemyState == EEnemyState.RUNNING)
 		{  // The enemy has yet to reach the player.
-			adjustedDirection = Vector3.ClampMagnitude(_desiredDirection * 0.5F + _avoidanceComponent, 1);
-		} else
-		if (EnemyState == EEnemyState.DEAD)
-		{
-			return;
+			adjustedDirection = Vector3.ClampMagnitude(DirectionToPlayer * 0.5F + _avoidanceComponent, 1);
 		}
-
-		_isMoving = _rb2d.velocity.magnitude > 0.1F;
-		_animator.SetBool("IsMoving", _isMoving);
-		//if (_isMoving && adjustedDirection.magnitude < 0.1F)
-		//{
-		//	_isMoving = false;
-		//	_animator.SetBool("IsMoving", _isMoving);
-		//}
-		//else
-		//if (!_isMoving && adjustedDirection.magnitude >= 0.1F && EnemyState != EEnemyState.ATTACKING)
-		//{
-		//	_isMoving = true;
-		//	_animator.SetBool("IsMoving", _isMoving);
-		//}
-		//_isMoving = adjustedDirection.magnitude > 0.1F;
-		//_animator.SetBool("IsMoving", _isMoving);
-		//if (!_isMoving)
-		//{
-		//	adjustedDirection = Vector3.zero;
-		//}
 
 		_rb2d.velocity = adjustedDirection * _moveSpeed;
 	}
 
 	private bool IsInRange(float buffer = 0)
 	{
-		return _distanceToTarget <= (_strikeRange + buffer);
+		return DistanceToPlayer <= (_strikeRange + buffer);
 	}
 
-	private void BeginAttack()
+	protected override void BeginAttack()
 	{
-		EnemyState = EEnemyState.ATTACKING;
-		_attackTimer = _attackCooldown;
-		_animator.SetTrigger("Attack");
-		_isMoving = false;
+		base.BeginAttack();
 	}
 
-	private void DoAttack()
+	protected override void DoAttack()
 	{
-
+		// TODO
 	}
 
-	private void EndAttack()
+	protected override void EndAttack()
 	{
-		EnemyState = EEnemyState.IDLING;
-		_attackTimer = _attackCooldown;
-		_isMoving = false;
+		base.EndAttack();
+
+		_attackTimer = _attackCooldown;  // Prepare the cooldown for the idle state.
 	}
 
 	private float InverseLerp(float a, float b, float v)
@@ -214,7 +124,7 @@ public class SimpleEnemy : MonoBehaviour
 		{
 			// The avoidance radius gets smaller the closer the enemy gets to the target,
 			// capped between striking range and up to 5 units away.
-			var t = Mathf.Clamp01(InverseLerp(_strikeRange, 5, _distanceToTarget));
+			var t = Mathf.Clamp01(InverseLerp(_strikeRange, 5, DistanceToPlayer));
 			_avoidanceRadius = Mathf.Lerp(_minAvoidanceRadius, _maxAvoidanceRadius, t);
 
 			_avoidanceComponent = Vector3.zero;
@@ -254,39 +164,32 @@ public class SimpleEnemy : MonoBehaviour
 		}
 	}
 
-	private void OnDamaged(GameObject source)
+	protected override void OnDamaged(GameObject source)
 	{
-		if (!_health.IsDead)
-		{ 
-			_animator.SetTrigger("Struck");  // This trigger interferes with the death trigger.
-		}
+		base.OnDamaged(source);
 	}
 
-	private void OnHealed()
-	{ 
-	
+	protected override void OnHealed()
+	{
 	}
 
-	private void OnKilled(GameObject source)
-	{ 
-		EnemyState = EEnemyState.DEAD;
+	protected override void OnKilled(GameObject source)
+	{
+		base.OnKilled(source);
+
 		_rb2d.velocity = Vector2.zero;
-		_animator.SetTrigger("Die");
-		gameObject.layer = LayerMask.NameToLayer("Corpse");
-
 		StopCoroutine(_bunchingAvoidance);
 	}
 
-	private void OnResurrected()
+	protected override void OnResurrected()
 	{
-		_animator.SetTrigger("Resurrect");
-		gameObject.layer = LayerMask.NameToLayer("Enemy");
+		base.OnResurrected();
 
 		_bunchingAvoidance = StartCoroutine(BunchingAvoidance());
 	}
 
-	private void OnResurrectionFinished()
+	protected override void OnResurrectedFinished()
 	{
-		EnemyState = EEnemyState.IDLING;
+		base.OnResurrectedFinished();
 	}
 }
