@@ -79,19 +79,19 @@ TextureImporter:
     second: SkeletalWarrior_Sprites_24
   - first:
       213: -401899678875296803
-    second: SkeletalWarrior_Sprites_25
+    second: Skeleton Struck 0
   - first:
       213: 2775882605403289915
-    second: SkeletalWarrior_Sprites_26
+    second: Skeleton Struck 1
   - first:
       213: -3424400556782168294
-    second: SkeletalWarrior_Sprites_27
+    second: Skeleton Struck 2
   - first:
       213: -552936125971586527
-    second: SkeletalWarrior_Sprites_28
+    second: Skeleton Struck 3
   - first:
       213: -5134177516933472285
-    second: SkeletalWarrior_Sprites_29
+    second: Skeleton Struck 4
   - first:
       213: -4183764738981324053
     second: Knight Die 0
@@ -868,15 +868,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_25
+      name: Skeleton Struck 0
       rect:
         serializedVersion: 2
         x: 7
         y: 193
         width: 18
         height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -889,15 +889,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_26
+      name: Skeleton Struck 1
       rect:
         serializedVersion: 2
         x: 39
         y: 193
         width: 17
         height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -910,15 +910,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_27
+      name: Skeleton Struck 2
       rect:
         serializedVersion: 2
         x: 71
         y: 193
         width: 17
         height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -931,15 +931,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_28
+      name: Skeleton Struck 3
       rect:
         serializedVersion: 2
         x: 103
         y: 193
         width: 17
         height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -952,15 +952,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SkeletalWarrior_Sprites_29
+      name: Skeleton Struck 4
       rect:
         serializedVersion: 2
         x: 135
         y: 193
         width: 18
         height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : PoolableObject
@@ -11,7 +12,7 @@ public class Projectile : PoolableObject
     [field: SerializeField]
     public float Range { get; private set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Tooltip("How many entities can this projectile penetrate?")]
     public int Penetration { get; private set; }    
 
     [field: SerializeField]
@@ -32,10 +33,12 @@ public class Projectile : PoolableObject
     private float _elapsedRange;
     private int _numImpacts;
 
-    public virtual void OnHit()
+    public virtual void OnHit(GameObject hitObject)
     {
+        _hitObjects.Add(hitObject);
+
         ++_numImpacts;
-        if (_numImpacts >= Penetration)
+        if (_numImpacts > Penetration)
         { 
             ObjectPool.Instance.ReleaseInstance(this);
         }
@@ -61,8 +64,11 @@ public class Projectile : PoolableObject
 	{
         _elapsedRange = 0;
         _numImpacts = 0;
+        _hitObjects.Clear();
         ArtRoot.transform.localScale = Vector3.one * SizeMod;
 	}
+
+    private List<GameObject> _hitObjects = new List<GameObject>();
 
 	private void FixedUpdate()
     {
@@ -70,7 +76,7 @@ public class Projectile : PoolableObject
         var deltaMagnitude = delta.magnitude;
 
         var hitInfo = Physics2D.Raycast(transform.position, delta, deltaMagnitude, HitLayer.value);
-        if (hitInfo.transform && hitInfo.transform.gameObject != this.FiredBy)
+        if (hitInfo.transform && ShouldRegisterHit(hitInfo))
         {
             transform.position = hitInfo.point;
 
@@ -82,7 +88,7 @@ public class Projectile : PoolableObject
                 health.Damage(damage, FiredBy);
             }
 
-            OnHit();
+            OnHit(hitInfo.transform.gameObject);
         }
         else
         {
@@ -94,5 +100,10 @@ public class Projectile : PoolableObject
         {
             OnMiss();
         }
+    }
+
+    private bool ShouldRegisterHit(RaycastHit2D hitInfo)
+    {
+        return hitInfo.transform.gameObject != this.FiredBy && !_hitObjects.Contains(hitInfo.transform.gameObject);
     }
 }

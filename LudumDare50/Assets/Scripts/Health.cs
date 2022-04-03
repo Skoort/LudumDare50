@@ -8,7 +8,18 @@ public class Health : MonoBehaviour
     [field: SerializeField]
     public float MaxHealth { get; private set; }
 
+	[SerializeField]
     private float _currHealth;
+
+	public bool IsDead => _currHealth == 0;
+
+	[SerializeField]
+	private float _timeInvulnerableAfterHit = 0.02F;
+	[SerializeField]
+	private bool _shouldResurrectTriggerInvulnerability = true;
+
+
+	private float _invulnerabilityTimer;
 
 	private void Awake()
 	{
@@ -17,6 +28,12 @@ public class Health : MonoBehaviour
 
 	public void Damage(float damage, GameObject source)
 	{
+		if (_invulnerabilityTimer > 0)
+		{
+			return;
+		}
+
+		_invulnerabilityTimer = _timeInvulnerableAfterHit;
 		_currHealth -= damage;
 		if (_currHealth <= 0)
 		{
@@ -32,6 +49,11 @@ public class Health : MonoBehaviour
 
 	public void Heal(float healing)
 	{
+		if (IsDead)
+		{
+			return;
+		}
+
 		_currHealth += healing;
 		if (_currHealth > MaxHealth)
 		{
@@ -40,7 +62,29 @@ public class Health : MonoBehaviour
 		OnHealed?.Invoke();
 	}
 
+	public void Resurrect()
+	{
+		if (!IsDead)
+		{
+			return;
+		}
+
+		_currHealth = MaxHealth;
+		if (_shouldResurrectTriggerInvulnerability)
+		{
+			_invulnerabilityTimer = _timeInvulnerableAfterHit;
+		}
+
+		OnResurrected?.Invoke();
+	}
+
+	private void Update()
+	{
+		_invulnerabilityTimer -= Time.deltaTime;
+	}
+
 	public event Action<GameObject> OnKilled;
 	public event Action<GameObject> OnDamaged;
 	public event Action OnHealed;
+	public event Action OnResurrected;
 }

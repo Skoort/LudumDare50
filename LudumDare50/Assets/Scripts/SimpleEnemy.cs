@@ -45,6 +45,11 @@ public class SimpleEnemy : MonoBehaviour
 		_health = GetComponent<Health>();
 	}
 
+	private void Start()
+	{
+		_health.OnResurrected += OnResurrected;
+	}
+
 	private Coroutine _bunchingAvoidance;
 	private void OnEnable()
 	{
@@ -64,6 +69,11 @@ public class SimpleEnemy : MonoBehaviour
 		_health.OnHealed -= OnHealed;
 	}
 
+	private void OnDestroy()
+	{
+		_health.OnResurrected -= OnResurrected;  // Unlike the other callbacks, this has to happen when the enemy is dead (and disabled).
+	}
+
 	[field: SerializeField]
 	public EEnemyState EnemyState { get; private set; }
 
@@ -79,17 +89,20 @@ public class SimpleEnemy : MonoBehaviour
 		_desiredDirection = toFrom.normalized;
 		_distanceToTarget = toFrom.magnitude;
 
+		if (EnemyState == EEnemyState.DEAD)
+		{
+			_attackTimer -= Time.deltaTime / _attackCooldown;
+			return;
+		}
+
 		if (_desiredDirection.x > 0 && _renderer.flipX)
 		{
 			_renderer.flipX = false;
-		}
-		else
+		} else
 		if (_desiredDirection.x < 0 && !_renderer.flipX)
 		{
 			_renderer.flipX = true;
 		}
-
-		_attackTimer -= Time.deltaTime / _attackCooldown;
 
 		switch (EnemyState)
 		{
@@ -189,7 +202,7 @@ public class SimpleEnemy : MonoBehaviour
 		return (v - a) / (b - a);
 	}
 
-	[SerializeField] private LayerMask _enemyLayer = default;
+	[SerializeField] private LayerMask _avoidanceLayer = default;
 	[SerializeField] private float _minAvoidanceRadius = 0.5F;
 	[SerializeField] private float _maxAvoidanceRadius = 3;
 	[SerializeField] private float _colliderRadius = 0.25F;
@@ -197,8 +210,6 @@ public class SimpleEnemy : MonoBehaviour
 	private Vector3 _avoidanceComponent;
 	private IEnumerator BunchingAvoidance()
 	{
-		var filter = new ContactFilter2D() { layerMask = _enemyLayer };
-
 		while (true)
 		{
 			// The avoidance radius gets smaller the closer the enemy gets to the target,
@@ -208,8 +219,8 @@ public class SimpleEnemy : MonoBehaviour
 
 			_avoidanceComponent = Vector3.zero;
 
-			var results = new List<Collider2D>();
-			if (Physics2D.OverlapCircle(transform.position, _avoidanceRadius, filter, results) > 0)
+			var results = Physics2D.OverlapCircleAll(transform.position, _avoidanceRadius, _avoidanceLayer);
+			if (results.Length > 0)
 			{
 				int numSums = 0;
 				foreach (var result in results)
@@ -245,6 +256,10 @@ public class SimpleEnemy : MonoBehaviour
 
 	private void OnDamaged(GameObject source)
 	{
+		if (!_health.IsDead)
+		{ 
+			_animator.SetTrigger("Struck");  // This trigger interferes with the death trigger.
+		}
 	}
 
 	private void OnHealed()
@@ -255,8 +270,23 @@ public class SimpleEnemy : MonoBehaviour
 	private void OnKilled(GameObject source)
 	{ 
 		EnemyState = EEnemyState.DEAD;
+		_rb2d.velocity = Vector2.zero;
 		_animator.SetTrigger("Die");
+		gameObject.layer = LayerMask.NameToLayer("Corpse");
 
 		StopCoroutine(_bunchingAvoidance);
+	}
+
+	private void OnResurrected()
+	{
+		_animator.SetTrigger("Resurrect");
+		gameObject.layer = LayerMask.NameToLayer("Enemy");
+
+		_bunchingAvoidance = StartCoroutine(BunchingAvoidance());
+	}
+
+	private void OnResurrectionFinished()
+	{
+		EnemyState = EEnemyState.IDLING;
 	}
 }
