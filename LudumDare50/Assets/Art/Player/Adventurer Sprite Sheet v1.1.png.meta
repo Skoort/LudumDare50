@@ -175,37 +175,37 @@ TextureImporter:
     second: Adventurer Sprite Sheet v1.1_56
   - first:
       213: -3660747289897842238
-    second: Adventurer Sprite Sheet v1.1_57
+    second: Player Struck 0
   - first:
       213: -5567148997713595027
-    second: Adventurer Sprite Sheet v1.1_58
+    second: Player Struck 1
   - first:
       213: 3923536972230823077
-    second: Adventurer Sprite Sheet v1.1_59
+    second: Player Struck 2
   - first:
       213: 3585777940085248844
-    second: Adventurer Sprite Sheet v1.1_60
+    second: Player Struck 3
   - first:
       213: 6498303574852265095
-    second: Adventurer Sprite Sheet v1.1_61
+    second: Player Death 0
   - first:
       213: 6664025246426972938
-    second: Adventurer Sprite Sheet v1.1_62
+    second: Player Death 1
   - first:
       213: 304441257328606875
     second: Adventurer Sprite Sheet v1.1_63
   - first:
       213: -1666943241128144958
-    second: Adventurer Sprite Sheet v1.1_64
+    second: Player Death 4
   - first:
       213: -682876664716711156
-    second: Adventurer Sprite Sheet v1.1_65
+    second: Player Death 5
   - first:
       213: 1224420270377346367
-    second: Adventurer Sprite Sheet v1.1_66
+    second: Player Death 6
   - first:
       213: 4923736647072137392
-    second: Adventurer Sprite Sheet v1.1_67
+    second: Player Death 7
   - first:
       213: -6059569917512512540
     second: Adventurer Sprite Sheet v1.1_68
@@ -1708,15 +1708,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_57
+      name: Player Struck 0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 288
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 6
+        y: 289
+        width: 16
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1729,15 +1729,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_58
+      name: Player Struck 1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 288
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 36
+        y: 289
+        width: 20
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1750,15 +1750,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_59
+      name: Player Struck 2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 288
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 65
+        y: 289
+        width: 26
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1771,15 +1771,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_60
+      name: Player Struck 3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 288
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 100
+        y: 289
+        width: 20
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1792,15 +1792,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_61
+      name: Player Death 0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 6
+        y: 257
+        width: 16
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1813,15 +1813,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_62
+      name: Player Death 1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 36
+        y: 257
+        width: 20
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1837,12 +1837,12 @@ TextureImporter:
       name: Adventurer Sprite Sheet v1.1_63
       rect:
         serializedVersion: 2
-        x: 64
-        y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 65
+        y: 257
+        width: 25
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1855,15 +1855,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_64
+      name: Player Death 4
       rect:
         serializedVersion: 2
-        x: 96
-        y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 100
+        y: 257
+        width: 20
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1876,15 +1876,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_65
+      name: Player Death 5
       rect:
         serializedVersion: 2
-        x: 128
+        x: 133
         y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 21
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1897,15 +1897,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_66
+      name: Player Death 6
       rect:
         serializedVersion: 2
-        x: 160
+        x: 166
         y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 21
+        height: 11
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1918,15 +1918,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Adventurer Sprite Sheet v1.1_67
+      name: Player Death 7
       rect:
         serializedVersion: 2
-        x: 192
+        x: 198
         y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 21
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

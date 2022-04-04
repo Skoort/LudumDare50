@@ -11,6 +11,8 @@ public class UpgradeManager : MonoBehaviour
         Debug.Assert(Instance == null, "UpgradeManager.Awake: Attempted to create multiple instances of UpgradeManager.");
 
         Instance = this;
+
+		_spawner = GameObject.FindObjectOfType<SpawnOnTimer>();
     }
 
 	private KnifeFiringPattern _knifeInfo;
@@ -22,11 +24,26 @@ public class UpgradeManager : MonoBehaviour
 		_axeInfo = Component.FindObjectOfType<AxeFiringPattern>();
 	}
 
+	[SerializeField] private UpgradePickup _theKnife = default;
+	[SerializeField] private UpgradePickup _theAxe = default;
+	[SerializeField] private SpawnOnTimer _spawner = default;
 	internal void RegisterUpgrade(string weaponType)
 	{
+		if (weaponType == "Special Knife")
+		{
+			UpgradeDagger();
+			Destroy(_theAxe.gameObject);
+			_spawner.enabled = true;
+		} else
 		if (weaponType == "Knife")
 		{
 			UpgradeDagger();
+		} else
+		if (weaponType == "Special Axe")
+		{
+			UpgradeAxe();
+			Destroy(_theKnife.gameObject);
+			_spawner.enabled = true;
 		} else
 		if (weaponType == "Axe")
 		{
@@ -180,5 +197,10 @@ public class UpgradeManager : MonoBehaviour
 		}
 
 		Instantiate<Pickup>(prefab, position + new Vector3(0, -0.1F, 0), Quaternion.identity, null);
+	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
 	}
 }

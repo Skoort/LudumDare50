@@ -10,6 +10,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody2D _rb2d;
 
+    public bool CanMove { get; set; } = true;
+
     private void Awake()
     {
         if (!_rb2d)
@@ -31,27 +33,37 @@ public class MovementController : MonoBehaviour
     private Vector3 _moveDir;
     private void Update()
     {
-        _moveDir = new Vector3(
-            Input.GetAxis("Horizontal"),
-            Input.GetAxis("Vertical"));
-
-        var isMoving = _moveDir.magnitude > 0.1F;
-        _animator.SetBool("IsMoving", isMoving);
-
-        if (_moveDir.x > 0 && _renderer.flipX)
-        {
-            _renderer.flipX = false;
-        } else
-        if (_moveDir.x < 0 && !_renderer.flipX)
+        if (CanMove)
         { 
-            _renderer.flipX = true;
+            _moveDir = new Vector3(
+                Input.GetAxis("Horizontal"),
+                Input.GetAxis("Vertical"));
+
+            var isMoving = _moveDir.magnitude > 0.1F;
+            _animator.SetBool("IsMoving", isMoving);
+
+            if (_moveDir.x > 0 && _renderer.flipX)
+            {
+                _renderer.flipX = false;
+            } else
+            if (_moveDir.x < 0 && !_renderer.flipX)
+            { 
+                _renderer.flipX = true;
+            }
         }
     }
 
 	private void FixedUpdate()
 	{
-        var clampedMoveDir = Vector3.ClampMagnitude(_moveDir, 1);
+        if (CanMove)
+        {
+            var clampedMoveDir = Vector3.ClampMagnitude(_moveDir, 1);
 
-        _rb2d.velocity = clampedMoveDir * _moveSpeed;
+            _rb2d.velocity = clampedMoveDir * _moveSpeed;
+        }
+        else
+        {
+            _rb2d.velocity = Vector2.zero;
+        }
     }
 }

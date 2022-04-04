@@ -12,7 +12,7 @@ public class SpawnOnTimer : MonoBehaviour
 
     private Coroutine _spawningBehaviour;
 
-    private void Awake()
+    private void OnEnable()
     {
         _spawningBehaviour = StartCoroutine(SpawningBehaviour());
     }

@@ -98,6 +98,28 @@ public class SimpleEnemy : Enemy
 	protected override void DoAttack()
 	{
 		// TODO
+		var direction = Vector3.right * ((DirectionToPlayer.x >= 0) ? +1 : -1);
+		var topClose = transform.position + Vector3.up * 0.8F;
+		var bottomFar = transform.position - Vector3.up * 0.8F + direction * 0.8F;
+		//var result = Physics2D.OverlapArea(topClose, bottomFar, LayerMask.GetMask("Player"));
+		var results = Physics2D.OverlapCircleAll(transform.position + direction * 0.3F, 0.8F, LayerMask.GetMask("Player"));
+		foreach (var result in results)
+		{
+			if (result.tag == "Player")
+			{
+				Debug.Log("Hit player!");
+				var health = result.gameObject.GetComponent<Health>();
+				if (health)
+				{
+					health.Damage(5, this.gameObject);
+					break;
+				}
+			}
+		}
+
+		//Debug.DrawLine(topClose, bottomFar, Color.red, 2F);
+		Debug.DrawLine(transform.position + direction * (0.3F - 0.8F), transform.position + direction * (0.3F + 0.8F), Color.red, 2F);
+		Debug.DrawLine(transform.position + direction * 0.3F + Vector3.up * -0.8F, transform.position + direction * 0.3F + Vector3.up * 0.8F, Color.red, 2F);
 	}
 
 	protected override void EndAttack()
